@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if request.path == '/' or route == 'index' or title == 'index' or not route %}
+  <!-- HERO SECTION -->
+  <!-- HERO SECTION -->
+  <section class="hero-landing">
+    <!-- Restrained atmospheric silhouettes and subtle glowing elements -->
+    <div class="hero-ambient-moon" aria-hidden="true"></div>
+    <div class="hero-ambient-fog" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <h1 class="horror-title" data-text="CYBERTOBER '26">CYBERTOBER '26</h1>
+
+      <p class="hero-tagline">
+        ONE STATE. MANY CAMPUSES. A SAFER DIGITAL FUTURE.
+      </p>
+
+      <p class="hero-sub-tagline">
+        This Halloween, curious minds across Kerala converge in a haunted digital frontier to confront evolving cybersecurity threats.
+        Awareness is our first line of defence. Infiltrate quarantined nodes, decode corrupted signals, and build a safer digital tomorrow.
+      </p>
+
+      <div class="event-date-badge">
+        <i class="fas fa-calendar-alt"></i>&nbsp; <strong>OCTOBER 26–31</strong>
+      </div>
+
+      <!-- Dynamic Call to Action -->
+      <div class="hero-cta-group">
+        {% if authed() %}
+          <a href="{{ url_for('challenges.listing') }}" class="btn-cta-primary">
+            <i class="fas fa-skull"></i> {% trans %}ENTER THE NIGHT{% endtrans %}
+          </a>
+        {% elif registration_visible() %}
+          <a href="{{ url_for('auth.register') }}" class="btn-cta-primary">
+            <i class="fas fa-skull"></i> {% trans %}ENTER THE NIGHT{% endtrans %}
+          </a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="btn-cta-primary">
+            <i class="fas fa-skull"></i> {% trans %}ENTER THE NIGHT{% endtrans %}
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Real CTFd Countdown & Status HUD -->
+      <div class="countdown-container" x-data="EventTimer()" x-init="startTimer()">
+        <div class="w-100 text-center mb-2">
+          <div class="status-indicator" :class="statusClass">
+            <span class="pulse-dot"></span>
+            <span x-text="statusText"></span>
+          </div>
+        </div>
+
+        <div class="countdown-unit">
+          <span class="countdown-val" x-text="days">00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-val" x-text="hours">00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-val" x-text="minutes">00</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-val" x-text="seconds">00</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% if content %}
+    <div class="container py-4">
+      <div class="terminal-card">
+        <div class="terminal-body">
+          {{ content | safe }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+{% else %}
+  <!-- SUBPAGE / CUSTOM MARKDOWN PAGE -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1>{{ title or "System Directive" }}</h1>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="terminal-title">{{ title or "Document" }}</span>
+        <span class="terminal-tag">[CONFIDENTIAL]</span>
+      </div>
+      <div class="terminal-body" style="line-height: 1.8;">
+        {{ content | safe }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+  {{ Assets.js("assets/js/page.js") }}
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('EventTimer', () => ({
+        days: '00',
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+        statusClass: 'live',
+        statusText: 'OPERATIONAL // NETWORK LIVE',
+
+        startTimer() {
+          const start = window.init.start ? window.init.start * 1000 : null;
+          const end = window.init.end ? window.init.end * 1000 : null;
+
+          const update = () => {
+            const now = Date.now();
+
+            if (start && now < start) {
+              // Upcoming
+              this.statusClass = 'upcoming';
+              this.statusText = 'STATUS: UPCOMING // COMMENCING SOON';
+              this.calcTime(start - now);
+            } else if (end && now > end) {
+              // Ended
+              this.statusClass = 'ended';
+              this.statusText = 'STATUS: CONCLUDED // ARCHIVE MODE';
+              this.days = '00';
+              this.hours = '00';
+              this.minutes = '00';
+              this.seconds = '00';
+            } else if (end) {
+              // Live with end time
+              this.statusClass = 'live';
+              this.statusText = 'STATUS: LIVE // TIME REMAINING';
+              this.calcTime(end - now);
+            } else {
+              // Live without end time
+              this.statusClass = 'live';
+              this.statusText = 'STATUS: LIVE // ARENA OPEN';
+              this.days = '--';
+              this.hours = '--';
+              this.minutes = '--';
+              this.seconds = '--';
+            }
+          };
+
+          update();
+          setInterval(update, 1000);
+        },
+
+        calcTime(diff) {
+          if (diff <= 0) return;
+          const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+          this.days = String(d).padStart(2, '0');
+          this.hours = String(h).padStart(2, '0');
+          this.minutes = String(m).padStart(2, '0');
+          this.seconds = String(s).padStart(2, '0');
+        }
+      }));
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,44 @@
+// Jumbotron & Subpage Header — CYBERTOBER'26 Halloween Horror Theme
+
+.jumbotron {
+  padding: clamp(2.5rem, 6vw, 4rem) 1rem clamp(2rem, 5vw, 3rem);
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  background-color: #0B0B0B;
+  background-image:
+    linear-gradient(180deg, rgba(11, 11, 11, 0.70) 0%, rgba(11, 11, 11, 0.94) 100%),
+    radial-gradient(circle at 80% 20%, rgba(230, 240, 74, 0.12) 0%, transparent 40%),
+    url('../img/cybertober-banner.jpg');
+  background-size: cover;
+  background-position: center 25%;
+  border-bottom: 2px solid rgba(255, 73, 53, 0.40);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+
+  h1 {
+    font-family: var(--hn-font-heading);
+    font-size: clamp(2.2rem, 6.5vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: clamp(2px, 0.5vw, 4px);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+    color: #FF4935;
+    text-shadow: 0 0 20px rgba(255, 73, 53, 0.6), 0 2px 4px #000000;
+  }
+
+  p {
+    font-family: var(--hn-font-sans);
+    color: #9AAFD8;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+    line-height: 1.6;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  }
+}

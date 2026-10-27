@@ -93,3 +93,8 @@ CTFd/themes/*
 !CTFd/themes/admin/
 !CTFd/themes/core/
 !CTFd/themes/core-deprecated/
+!CTFd/themes/haunted-network/
+CTFd/themes/haunted-network/node_modules/
+.env
+.env.*
+!.env.example

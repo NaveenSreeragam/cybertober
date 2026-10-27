@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{ title ~ " | " if title else "" }}{{ Configs.ctf_name or "CYBERTOBER'26" }} - MuLearn Cyber</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CYBERTOBER'26 — One State. Many Campuses. A Safer Digital Future. Cyber IG, µLearn Foundation — October 26–30, 2026, Kerala.">
+  <link rel="shortcut icon" href="{{ url_for('views.themes_beta', theme='haunted-network', path='img/logo.png') }}" type="image/png">
+
+  <!-- Preconnect and Load Atmospheric & Horror Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Creepster&family=Nosifer&family=Space+Grotesk:wght@400;500;600;700&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  {{ meta | safe }}
+
+  {% block stylesheets %}
+    {{ Assets.css("assets/scss/main.scss") }}
+  {% endblock %}
+
+  {{ Plugins.styles }}
+
+  {{ Assets.js("assets/js/color_mode_switcher.js", type=None) }}
+
+  <script type="text/javascript">
+      window.init = {
+          'urlRoot': "{{ request.script_root }}",
+          'csrfNonce': "{{ Session.nonce }}",
+          'userMode': "{{ Configs.user_mode }}",
+          'userId': {{ Session.id }},
+          'userName': {{ User.name | tojson }},
+          'userEmail': {{ User.email | tojson }},
+          'userVerified': {{ User.verified | tojson }},
+          'teamId': {{ Team.id | tojson }},
+          'teamName': {{ Team.name | tojson }},
+          'start': {{ Configs.start | tojson }},
+          'end': {{ Configs.end | tojson }},
+          'themeSettings': {{ Configs.theme_settings | tojson }},
+          'eventSounds': [
+            "{{ url_for('views.themes_beta', theme='haunted-network', path='sounds/notification.webm') }}",
+            "{{ url_for('views.themes_beta', theme='haunted-network', path='sounds/notification.mp3') }}",
+          ],
+      }
+  </script>
+
+  {{ Configs.theme_header }}
+</head>
+<body class="haunted-bg">
+{% include "components/navbar.html" %}
+
+<main role="main">
+  {% block content %}
+  {% endblock %}
+</main>
+
+{% include "components/snackbar.html" %}
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-brand-title">Cybertober'26</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="{{ url_for('views.static_html', route='/') }}">Home</a>
+        <a href="{{ url_for('challenges.listing') }}">Challenges</a>
+        <a href="{{ url_for('scoreboard.listing') }}">Scoreboard</a>
+        <a href="{{ url_for('views.static_html', route='/#rules') }}">Rules</a>
+      </div>
+
+      <div class="footer-copy">
+        <span class="text-muted">CYBERTOBER'26 &bull; Cyber IG, &mu;Learn Foundation</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% include "components/notifications.html" %}
+
+{% block scripts %}
+  {{ Assets.js("assets/js/page.js") }}
+{% endblock %}
+
+{{ Plugins.scripts }}
+
+{{ Configs.theme_footer }}
+</body>
+</html>

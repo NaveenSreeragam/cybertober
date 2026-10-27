@@ -1,0 +1,101 @@
+// Form and Auth Card Styles — CYBERTOBER'26 Horror Dark Theme
+
+.auth-card {
+  background: #141414;
+  border: 1px solid rgba(255, 73, 53, 0.35);
+  border-radius: var(--hn-border-radius-md);
+  padding: 2.75rem 2.25rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 73, 53, 0.15);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #FF4935, #E6F04A, #FF4935);
+  }
+
+  .auth-security-notice {
+    background: rgba(255, 73, 53, 0.08);
+    border: 1px solid rgba(255, 73, 53, 0.30);
+    border-radius: var(--hn-border-radius-sm);
+    padding: 0.75rem 1rem;
+    font-family: var(--hn-font-mono);
+    font-size: 0.78rem;
+    color: var(--hn-bone-white);
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+
+    i { color: #E6F04A; }
+  }
+}
+
+.form-label {
+  font-family: var(--hn-font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  color: var(--hn-bone-white);
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+
+.form-control,
+.form-select {
+  background-color: #121212 !important;
+  border: 1px solid rgba(255, 73, 53, 0.35) !important;
+  color: var(--hn-bone-white) !important;
+  font-family: var(--hn-font-sans);
+  border-radius: var(--hn-border-radius-sm);
+  padding: 0.75rem 0.95rem !important;
+  transition: all var(--hn-transition-fast);
+
+  &::placeholder { color: var(--hn-text-muted); }
+
+  &:focus {
+    border-color: #E6F04A !important;
+    box-shadow: 0 0 0 3px rgba(230, 240, 74, 0.25) !important;
+    outline: none;
+  }
+}
+
+.form-text {
+  font-family: var(--hn-font-mono);
+  font-size: 0.75rem;
+  color: var(--hn-text-muted) !important;
+  margin-top: 0.35rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #c412af, #9a0d89) !important;
+  border: none !important;
+  color: #FFFFFF !important;
+  font-family: var(--hn-font-sans);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: var(--hn-border-radius-sm);
+  padding: 0.65rem 1.25rem;
+  box-shadow: 0 4px 18px rgba(196, 18, 175, 0.30);
+  transition: all var(--hn-transition-fast);
+
+  &:hover, &:focus {
+    box-shadow: 0 6px 24px rgba(196, 18, 175, 0.50) !important;
+    transform: translateY(-1px);
+    color: #FFFFFF !important;
+  }
+}
+
+.btn-outline-primary {
+  border-color: #c412af !important;
+  color: #c412af !important;
+
+  &:hover {
+    background: #c412af !important;
+    color: #FFFFFF !important;
+  }
+}

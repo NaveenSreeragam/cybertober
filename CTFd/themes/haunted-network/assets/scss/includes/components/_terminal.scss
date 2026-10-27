@@ -1,0 +1,156 @@
+// Terminal & Forensic HUD Styles for CYBERTOBER'26 Light Theme
+
+.terminal-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid rgba(196, 18, 175, 0.20);
+  border-radius: var(--hn-border-radius-md);
+  box-shadow: 0 4px 20px rgba(196, 18, 175, 0.08);
+  overflow: hidden;
+  position: relative;
+
+  .terminal-header {
+    background: #FBF0FF;
+    padding: 0.65rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(196, 18, 175, 0.15);
+    font-family: var(--hn-font-mono);
+    font-size: 0.78rem;
+    color: var(--hn-text-secondary);
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+
+      span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+
+        &:nth-child(1) { background: #fa9f02; }
+        &:nth-child(2) { background: #c412af; }
+        &:nth-child(3) { background: #2E7D32; }
+      }
+    }
+
+    .terminal-title {
+      color: var(--hn-text-secondary);
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .terminal-tag {
+      color: var(--hn-ember-orange);
+      font-weight: 700;
+    }
+  }
+
+  .terminal-body {
+    padding: 1.5rem;
+    font-family: var(--hn-font-mono);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    background-color: #FFFFFF;
+    color: var(--hn-text-primary);
+
+    .prompt-line {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      .prompt-user {
+        color: var(--hn-ember-orange);
+        font-weight: 600;
+      }
+
+      .prompt-path {
+        color: var(--hn-spectral-violet);
+      }
+
+      .prompt-char {
+        color: var(--hn-gold);
+      }
+    }
+
+    .terminal-output {
+      color: var(--hn-text-secondary);
+      margin-left: 1.25rem;
+      margin-bottom: 0.75rem;
+
+      &.highlight-green {
+        color: #2E7D32;
+        font-weight: 600;
+      }
+
+      &.highlight-orange {
+        color: #d98500;
+        font-weight: 600;
+      }
+
+      &.highlight-red {
+        color: var(--hn-blood-red);
+      }
+    }
+  }
+}
+
+// Technical Badges
+.badge-tech {
+  font-family: var(--hn-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: 50px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  &.badge-ember {
+    background: rgba(196, 18, 175, 0.08);
+    border: 1px solid rgba(196, 18, 175, 0.35);
+    color: var(--hn-ember-orange);
+  }
+
+  &.badge-phosphor {
+    background: rgba(46, 125, 50, 0.08);
+    border: 1px solid rgba(46, 125, 50, 0.35);
+    color: var(--hn-phosphor-green);
+  }
+
+  &.badge-spectral {
+    background: rgba(123, 31, 162, 0.08);
+    border: 1px solid rgba(123, 31, 162, 0.35);
+    color: var(--hn-spectral-violet);
+  }
+
+  &.badge-blood {
+    background: rgba(211, 47, 47, 0.08);
+    border: 1px solid rgba(211, 47, 47, 0.35);
+    color: var(--hn-blood-red);
+  }
+}
+
+// Code & Flag formatting
+code, pre {
+  font-family: var(--hn-font-mono) !important;
+}
+
+code {
+  background: #FBF0FF;
+  border: 1px solid rgba(196, 18, 175, 0.25);
+  color: var(--hn-ember-orange);
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+pre {
+  background: #FBF0FF !important;
+  border: 1px solid rgba(196, 18, 175, 0.18);
+  border-radius: var(--hn-border-radius-md);
+  padding: 1rem;
+  color: var(--hn-text-primary);
+}

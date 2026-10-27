@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+      <div class="d-inline-block mb-2">
+        <span class="badge-tech badge-phosphor">
+          <i class="fas fa-id-badge"></i> NEW OPERATIVE REGISTRATION
+        </span>
+      </div>
+      <h1 class="glitch-text" data-text="REGISTER">
+        {% trans %}Register{% endtrans %}
+      </h1>
+      <p>Initialize your credentials to breach quarantine challenges and join the leaderboard.</p>
+    </div>
+  </div>
+
+  <div class="container mb-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        {% include "components/errors.html" %}
+
+        <div class="auth-card">
+          <div class="auth-security-notice">
+            <i class="fas fa-user-shield"></i>
+            <span>ENCRYPTED RECRUITMENT GATEWAY &bull; MULEARN CYBER</span>
+          </div>
+
+          {% if integrations.mlc() %}
+            <a class="btn btn-secondary btn-lg w-100 mb-3" href="{{ url_for('auth.oauth_login') }}">
+              <i class="fas fa-shield-virus pe-1"></i> Register with Major League Cyber
+            </a>
+            <div class="text-center text-muted my-3 font-monospace">&mdash; OR REGISTER DIRECTLY &mdash;</div>
+          {% endif %}
+
+          {% with form = Forms.auth.RegistrationForm() %}
+            {% from "macros/forms.html" import render_extra_fields %}
+
+            <form method="post" accept-charset="utf-8" role="form">
+              <div class="mb-3">
+                <b>
+                  {{ form.name.label(class="form-label") }}
+                  <span class="text-danger">*</span>
+                </b>
+                {{ form.name(class="form-control", value=name, autocomplete="username", placeholder="Handle / Call-sign") }}
+                <small class="form-text text-muted">
+                  {% trans %}Your operative handle visible on the scoreboard{% endtrans %}
+                </small>
+              </div>
+
+              <div class="mb-3">
+                <b>
+                  {{ form.email.label(class="form-label") }}
+                  <span class="text-danger">*</span>
+                </b>
+                {{ form.email(class="form-control", value=email, autocomplete="email", placeholder="operative@domain.com") }}
+                <small class="form-text text-muted">
+                  {% trans %}Confidential &bull; Never disclosed publicly{% endtrans %}
+                </small>
+              </div>
+
+              <div class="mb-3">
+                <b>
+                  {{ form.password.label(class="form-label") }}
+                  <span class="text-danger">*</span>
+                </b>
+                {{ form.password(class="form-control", value=password, autocomplete="new-password", placeholder="Strong Password") }}
+                <small class="form-text text-muted">
+                  {% trans %}Secured with modern cryptographic hashing{% endtrans %}
+                </small>
+              </div>
+
+              {{ form.nonce() }}
+
+              {{ render_extra_fields(form.extra) }}
+
+              <div class="row pt-3">
+                <div class="col-12 text-end">
+                  {{ form.submit(class="btn btn-primary w-100 py-2") }}
+                </div>
+              </div>
+
+              {% if Configs.tos_or_privacy %}
+                <div class="row pt-3">
+                  <div class="col-md-12 text-center">
+                    <small class="text-muted text-center" style="font-size: 0.75rem;">
+                      {% trans trimmed privacy_link=Configs.privacy_link, tos_link=Configs.tos_link %}
+                      By registering, you agree to the
+                      <a href="{{ privacy_link }}" target="_blank" class="text-warning">privacy policy</a>
+                      and <a href="{{ tos_link }}" target="_blank" class="text-warning">terms of service</a>
+                      {% endtrans %}
+                    </small>
+                  </div>
+                </div>
+              {% endif %}
+            </form>
+          {% endwith %}
+
+          <div class="text-center pt-4 mt-3 border-top border-secondary border-opacity-25">
+            <span class="text-secondary small">Already have an active account?</span>
+            <a href="{{ url_for('auth.login') }}" class="ms-1 text-warning fw-bold small">
+              {% trans %}Log In{% endtrans %} &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

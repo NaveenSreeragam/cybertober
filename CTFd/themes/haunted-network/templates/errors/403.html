@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5 py-5 text-center">
+  <div class="terminal-card mx-auto p-4" style="max-width: 650px;">
+    <div class="terminal-header">
+      <div class="terminal-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="terminal-title">firewall@haunted-net</span>
+      <span class="terminal-tag text-danger">[403]</span>
+    </div>
+    <div class="terminal-body py-5 text-center">
+      <i class="fas fa-hand-paper fa-4x text-danger mb-4"></i>
+      <h1 class="glitch-text text-danger mb-3" data-text="ACCESS FORBIDDEN">ACCESS FORBIDDEN</h1>
+      <h3 class="text-secondary font-monospace mb-4">403 // INSUFFICIENT SECURITY CLEARANCE</h3>
+      <p class="text-muted mb-4" style="max-width: 480px; margin: 0 auto;">
+        Your operative token does not grant clearance to access this classified quarantine asset.
+      </p>
+      <a href="{{ url_for('views.static_html', route='/') }}" class="btn-cta-primary">
+        <i class="fas fa-arrow-left pe-1"></i> Return To Safety
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

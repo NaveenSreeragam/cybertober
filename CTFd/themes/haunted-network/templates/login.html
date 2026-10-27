@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+      <div class="d-inline-block mb-2">
+        <span class="badge-tech badge-ember">
+          <i class="fas fa-key"></i> IDENTITY GATEWAY
+        </span>
+      </div>
+      <h1 class="glitch-text" data-text="LOGIN">
+        {% trans %}Login{% endtrans %}
+      </h1>
+      <p>Enter your verified credentials to access the quarantine arena.</p>
+    </div>
+  </div>
+
+  <div class="container mb-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        {% include "components/errors.html" %}
+
+        <div class="auth-card">
+          <div class="auth-security-notice">
+            <i class="fas fa-shield-alt"></i>
+            <span>SECURE TERMINAL ACCESS &bull; RESTRICTED ZONE</span>
+          </div>
+
+          {% if integrations.mlc() %}
+            <a class="btn btn-secondary btn-lg w-100 mb-3" href="{{ url_for('auth.oauth_login') }}">
+              <i class="fas fa-shield-virus pe-1"></i> Login with Major League Cyber
+            </a>
+            <div class="text-center text-muted my-3 font-monospace">&mdash; OR USE LOCAL CREDENTIALS &mdash;</div>
+          {% endif %}
+
+          {% with form = Forms.auth.LoginForm() %}
+            <form method="post" accept-charset="utf-8">
+              <div class="mb-3">
+                <b>
+                  {{ form.name.label(class="form-label") }}
+                  <span class="text-danger">*</span>
+                </b>
+                {{ form.name(class="form-control", value=name, autocomplete="username email", placeholder="Username or Email") }}
+              </div>
+
+              <div class="mb-3">
+                <b>
+                  {{ form.password.label(class="form-label") }}
+                  <span class="text-danger">*</span>
+                </b>
+                {{ form.password(class="form-control", value=password, autocomplete="current-password", placeholder="Password") }}
+              </div>
+
+              <div class="row align-items-center pt-3">
+                <div class="col-6 col-md-7">
+                  <a class="text-secondary small" href="{{ url_for('auth.reset_password') }}">
+                    <i class="fas fa-question-circle pe-1"></i>{% trans %}Forgot password?{% endtrans %}
+                  </a>
+                </div>
+
+                <div class="col-6 col-md-5 text-end">
+                  {{ form.submit(class="btn btn-primary w-100") }}
+                </div>
+              </div>
+
+              {{ form.nonce() }}
+            </form>
+          {% endwith %}
+
+          {% if registration_visible() %}
+            <div class="text-center pt-4 mt-3 border-top border-secondary border-opacity-25">
+              <span class="text-secondary small">Need to register a new operative?</span>
+              <a href="{{ url_for('auth.register') }}" class="ms-1 text-warning fw-bold small">
+                {% trans %}Create Account{% endtrans %} &rarr;
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

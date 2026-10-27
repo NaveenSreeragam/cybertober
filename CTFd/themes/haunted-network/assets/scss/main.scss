@@ -1,0 +1,142 @@
+// CYBERTOBER'26 — Main Stylesheet
+// Halloween: Magenta #c412af | White | Gold #fa9f02
+
+@use "bootstrap/scss/bootstrap" as * with (
+  $font-family-sans-serif: ('Space Grotesk', 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif),
+  $font-family-base:       ('Space Grotesk', 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif),
+  $headings-font-family:   ('Bebas Neue', 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif),
+  $body-bg:      #0B0B0B,
+  $body-color:   #EAE5D8,
+  $primary:      #FF4935,
+  $danger:       #FF4935,
+  $success:      #39D353,
+  $info:         #9AAFD8,
+  $warning:      #E6F04A,
+  $dark:         #121212,
+  $secondary:    #B8B2A5,
+  $link-color:       #FF4935,
+  $link-hover-color: #E6F04A,
+  // ─ Sharp distressed edges ─
+  $border-radius:    6px,
+  $border-radius-sm: 4px,
+  $border-radius-lg: 10px,
+  $border-radius-xl: 16px,
+  $btn-border-radius:    6px,
+  $btn-border-radius-sm: 4px,
+  $btn-border-radius-lg: 10px,
+  $input-border-radius:    6px,
+  $input-border-radius-sm: 4px,
+  $input-border-radius-lg: 10px,
+  $card-border-radius:  10px,
+  $modal-content-border-radius: 12px,
+  $dropdown-border-radius: 8px,
+  $nav-pills-border-radius: 6px,
+  $badge-border-radius: 4px
+);
+
+@use "includes/theme_variables";
+@use "includes/utils/fonts";
+@use "includes/utils/animations";
+@use "includes/utils/opacity";
+@use "includes/utils/min-height";
+@use "includes/utils/cursors";
+@use "includes/utils/lolight";
+
+@use "includes/icons/award-icons";
+@use "includes/icons/flag-icons";
+
+@use "includes/components/navbar";
+@use "includes/components/table";
+@use "includes/components/jumbotron";
+@use "includes/components/challenge";
+@use "includes/components/scoreboard";
+@use "includes/components/forms";
+@use "includes/components/terminal";
+@use "includes/components/landing";
+@use "includes/components/sticky-footer";
+@use "includes/components/graphs";
+
+// ── Global Base ───────────────────────────────────────────────
+// ── Global Base ───────────────────────────────────────────────
+body {
+  font-family: var(--hn-font-sans);
+  background-color: var(--hn-bg-obsidian);
+  color: var(--hn-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Keep the interface text-only: remove decorative and action Font Awesome icons.
+i[class^="fa-"],
+i[class*=" fa-"],
+.award-icon,
+.cat-icon,
+.rule-icon,
+.org-shield-icon,
+.event-info-icon {
+  display: none !important;
+}
+
+a {
+  text-decoration: none !important;
+  color: var(--hn-blood-red);
+  transition: color var(--hn-transition-fast), text-shadow var(--hn-transition-fast);
+
+  &:hover {
+    color: var(--hn-moon-yellow);
+    text-shadow: 0 0 8px rgba(230, 240, 74, 0.4);
+  }
+}
+
+blockquote {
+  border-left: 3px solid var(--hn-blood-red);
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 73, 53, 0.06);
+  border-radius: 0 var(--hn-border-radius-sm) var(--hn-border-radius-sm) 0;
+  color: var(--hn-text-secondary);
+}
+
+input, select, textarea {
+  padding: 0.65rem 0.85rem !important;
+  height: auto !important;
+  background-color: #121212 !important;
+  color: #EAE5D8 !important;
+  border: 1px solid rgba(255, 73, 53, 0.35) !important;
+}
+
+.fa-spin.spinner {
+  text-align: center;
+  color: var(--hn-blood-red);
+  opacity: 0.8;
+}
+
+.badge-notification {
+  vertical-align: top;
+  margin-left: -0.8em;
+  font-size: 60%;
+  background-color: var(--hn-blood-red) !important;
+}
+
+// ── Alerts ───────────────────────────────────────────────────
+.alert {
+  border-radius: var(--hn-border-radius-sm);
+  border-width: 1px;
+  background-color: #161616;
+  font-family: var(--hn-font-sans);
+
+  &.alert-danger  { border-color: var(--hn-blood-red);      color: #ff8577;      background-color: rgba(255,73,53,0.12);  }
+  &.alert-success { border-color: var(--hn-phosphor-green); color: #7ee787;      background-color: rgba(57,211,83,0.12);  }
+  &.alert-info    { border-color: var(--hn-horror-blue);    color: #c4d7fc;      background-color: rgba(154,175,216,0.12); }
+  &.alert-warning { border-color: var(--hn-moon-yellow);    color: var(--hn-moon-yellow); background-color: rgba(230,240,74,0.10);  }
+}
+
+// ── Card ─────────────────────────────────────────────────────
+.card {
+  background-color: var(--hn-surface-card);
+  border: 1px solid rgba(255, 73, 53, 0.20);
+  border-radius: var(--hn-border-radius-md);
+  color: var(--hn-text-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}

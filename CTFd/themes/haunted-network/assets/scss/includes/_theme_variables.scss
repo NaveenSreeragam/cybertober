@@ -1,0 +1,68 @@
+// CYBERTOBER'26 — Halloween Horror Dark Theme Design System
+// Master Palette: Obsidian Black #0B0B0B | Blood Red #FF4935 | Moon Yellow #E6F04A | Bone White #EAE5D8 | Horror Blue #9AAFD8
+
+:root {
+  // ── Backgrounds & Surfaces ───────────────────────────────────
+  --hn-bg-obsidian: #0B0B0B;
+  --hn-bg-charcoal: #121212;
+  --hn-surface-elevated: #161616;
+  --hn-surface-card: #141414;
+  --hn-surface-glass: rgba(18, 18, 18, 0.90);
+  --hn-surface-glass-border: rgba(255, 73, 53, 0.28);
+  --hn-border-distressed: rgba(255, 73, 53, 0.35);
+
+  // ── Primary Brand — Blood Orange-Red ─────────────────────────
+  --hn-blood-red: #FF4935;
+  --hn-blood-crimson: #8F1714;
+  --hn-blood-red-glow: rgba(255, 73, 53, 0.45);
+  --hn-blood-red-subtle: rgba(255, 73, 53, 0.12);
+  --hn-ember-orange: #FF4935;
+  --hn-ember-orange-dim: #D63825;
+  --hn-ember-glow: rgba(255, 73, 53, 0.50);
+  --hn-ember-glow-subtle: rgba(255, 73, 53, 0.15);
+
+  // ── Accent — Radioactive Moon Yellow ─────────────────────────
+  --hn-moon-yellow: #E6F04A;
+  --hn-moon-glow: rgba(230, 240, 74, 0.45);
+  --hn-moon-glow-subtle: rgba(230, 240, 74, 0.14);
+  --hn-gold: #E6F04A;
+  --hn-gold-dim: #C5CE36;
+  --hn-gold-glow: rgba(230, 240, 74, 0.45);
+  --hn-gold-subtle: rgba(230, 240, 74, 0.14);
+
+  // ── Supporting Tones ──────────────────────────────────────────
+  --hn-horror-blue: #9AAFD8;
+  --hn-bone-white: #EAE5D8;
+  --hn-dark-charcoal: #202020;
+
+  // ── Status Colors ─────────────────────────────────────────────
+  --hn-phosphor-green: #39D353;
+  --hn-phosphor-green-dim: #26A641;
+  --hn-phosphor-glow: rgba(57, 211, 83, 0.35);
+  --hn-phosphor-glow-subtle: rgba(57, 211, 83, 0.10);
+
+  --hn-spectral-violet: #8F1714;
+  --hn-spectral-violet-dim: #5c0f0d;
+  --hn-spectral-glow: rgba(143, 23, 20, 0.40);
+
+  // ── Text ──────────────────────────────────────────────────────
+  --hn-text-primary: #EAE5D8;
+  --hn-text-secondary: #B8B2A5;
+  --hn-text-muted: #7A756D;
+  --hn-text-highlight: #FF4935;
+  --hn-text-accent: #E6F04A;
+
+  // ── Typography ───────────────────────────────────────────────
+  --hn-font-horror: 'Creepster', 'Nosifer', cursive, fantasy;
+  --hn-font-heading: 'Bebas Neue', sans-serif;
+  --hn-font-display: 'Bebas Neue', 'Creepster', sans-serif;
+  --hn-font-sans:    'Space Grotesk', 'Montserrat', -apple-system, sans-serif;
+  --hn-font-mono:    'JetBrains Mono', Consolas, monospace;
+
+  // ── Layout ───────────────────────────────────────────────────
+  --hn-border-radius-sm: 6px;
+  --hn-border-radius-md: 10px;
+  --hn-border-radius-lg: 16px;
+  --hn-transition-fast:   0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --hn-transition-normal: 0.30s cubic-bezier(0.16, 1, 0.3, 1);
+}
