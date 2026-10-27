@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
+  {% if authed() %}
+    <!-- FIRST-TIME QUARANTINE INTERCEPT MODAL (SHOWS ONLY ONCE AFTER LOGIN) -->
+    <div id="challenges-agent-modal-wrapper" class="challenges-intercept-overlay d-none">
+      <div class="challenges-intercept-dialog">
+        <div class="challenges-intercept-header">
+          <div class="intercept-alert-title">
+            <span class="intercept-pulse-beacon"></span>
+            <span>QUARANTINE SECURITY INTERCEPT // INITIAL INTAKE</span>
+          </div>
+          <button type="button" class="intercept-dismiss-btn" id="intercept-modal-dismiss" title="Bypass Intercept">
+            <span>BYPASS TO ARENA ✕</span>
+          </button>
+        </div>
+        {% include "components/terminal_agent.html" %}
+      </div>
+    </div>
+  {% endif %}
+
   <div class="jumbotron">
     <div class="container">
       <div class="d-inline-block mb-2">

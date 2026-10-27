@@ -92,7 +92,7 @@
         <button type="button" class="veil-btn veil-btn-reboot" id="veil-reboot-btn">
           <span>↺ REBOOT SYSTEM & REPLAY</span>
         </button>
-        <a href="{{ url_for('challenges.listing') }}" class="veil-btn veil-btn-arena">
+        <a href="{{ url_for('challenges.listing') }}" class="veil-btn veil-btn-arena" id="veil-arena-link">
           <span>☠ ENTER THE ARENA ANYWAY</span>
         </a>
         <button type="button" class="veil-btn veil-btn-dismiss" id="veil-dismiss-btn">
@@ -104,6 +104,114 @@
 </div>
 
 <style>
+/* ─────────────────────────────────────────────────────────────
+   CHALLENGES FIRST-TIME INTERCEPT MODAL OVERLAY (SHOW ONCE)
+   ───────────────────────────────────────────────────────────── */
+.challenges-intercept-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(5, 5, 8, 0.90);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: interceptFadeIn 0.35s ease-out;
+}
+
+.challenges-intercept-overlay.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+@keyframes interceptFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.challenges-intercept-dialog {
+  width: 100%;
+  max-width: 880px;
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+  border-radius: 14px;
+  box-shadow: 
+    0 0 50px rgba(255, 73, 53, 0.28),
+    0 25px 60px rgba(0, 0, 0, 0.95);
+}
+
+.challenges-intercept-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111116;
+  border: 1.5px solid rgba(255, 73, 53, 0.45);
+  border-bottom: 1px solid rgba(255, 73, 53, 0.25);
+  border-radius: 12px 12px 0 0;
+  padding: 0.65rem 1.15rem;
+  font-family: 'JetBrains Mono', Consolas, monospace;
+}
+
+.intercept-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ff4935;
+  text-shadow: 0 0 8px rgba(255, 73, 53, 0.4);
+}
+
+.intercept-pulse-beacon {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff4935;
+  box-shadow: 0 0 10px #ff4935;
+  animation: beaconPulse 1.2s infinite;
+}
+
+.intercept-dismiss-btn {
+  background: rgba(255, 73, 53, 0.12);
+  border: 1px solid rgba(255, 73, 53, 0.35);
+  color: #eae5d8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.28rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.intercept-dismiss-btn:hover {
+  background: #ff4935;
+  color: #0b0b0b;
+  border-color: #ff4935;
+  box-shadow: 0 0 12px rgba(255, 73, 53, 0.6);
+}
+
+.challenges-intercept-dialog .cybertober-agent-container {
+  margin: 0 !important;
+  max-width: 100% !important;
+}
+
+.challenges-intercept-dialog .agent-terminal-card {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
+}
+
 /* ─────────────────────────────────────────────────────────────
    CYBERTOBER AGENT TERMINAL STYLES (Light & Dark Compatible)
    ───────────────────────────────────────────────────────────── */
@@ -790,6 +898,68 @@
   'use strict';
 
   // ─────────────────────────────────────────────────────────────
+  // FIRST-TIME CHALLENGES INTERCEPT DETECTION ("SHOW ONLY ONCE")
+  // ─────────────────────────────────────────────────────────────
+  const challengesWrapper = document.getElementById('challenges-agent-modal-wrapper');
+  const bypassBtn = document.getElementById('intercept-modal-dismiss');
+  const isChallengesPage = !!challengesWrapper;
+  
+  const currentUserId = (window.init && window.init.userId) ? window.init.userId : 'guest';
+  const challengesStorageKey = 'cybertober_veil_challenges_seen_' + currentUserId;
+
+  // Support developer testing overrides: ?veil=1 (force show) or ?reset_veil=1 (reset storage)
+  const urlParams = new URLSearchParams(window.location.search);
+  const forceShow = urlParams.has('veil') || urlParams.has('test_veil');
+  if (urlParams.has('reset_veil')) {
+    try { localStorage.removeItem(challengesStorageKey); } catch(e) {}
+  }
+
+  // If on /challenges page, check if user has already seen this once:
+  if (isChallengesPage) {
+    let hasSeen = false;
+    try {
+      hasSeen = localStorage.getItem(challengesStorageKey) === 'true';
+    } catch(e) {}
+
+    if (hasSeen && !forceShow) {
+      // User has already experienced this on challenges after login. Show only once!
+      challengesWrapper.classList.add('d-none');
+      if (challengesWrapper.parentNode) {
+        challengesWrapper.parentNode.removeChild(challengesWrapper);
+      }
+      return; // Do not initialize terminal on challenges
+    } else {
+      // First time entering challenges after login: reveal intercept modal!
+      challengesWrapper.classList.remove('d-none');
+    }
+  }
+
+  function markChallengesSeen() {
+    try {
+      localStorage.setItem(challengesStorageKey, 'true');
+    } catch(e) {}
+  }
+
+  function closeChallengesModal() {
+    if (challengesWrapper) {
+      challengesWrapper.classList.add('fade-out');
+      setTimeout(() => {
+        challengesWrapper.classList.add('d-none');
+        if (challengesWrapper.parentNode) {
+          challengesWrapper.parentNode.removeChild(challengesWrapper);
+        }
+      }, 300);
+    }
+  }
+
+  if (bypassBtn) {
+    bypassBtn.addEventListener('click', function() {
+      markChallengesSeen();
+      closeChallengesModal();
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────────
   // WEB AUDIO API SOUND GENERATOR (100% self-contained, no files)
   // ─────────────────────────────────────────────────────────────
   let audioEnabled = true;
@@ -928,6 +1098,9 @@
   let userName = '';
   let cipherInputCount = 0;
 
+  // Prepopulate with logged in username if available
+  const defaultLoggedInName = (window.init && window.init.userName) ? window.init.userName : '';
+
   // DOM Elements
   const terminalLogs = document.getElementById('agent-terminal-logs');
   const conversation = document.getElementById('terminal-conversation');
@@ -947,6 +1120,7 @@
   const veilSpeech = document.getElementById('veil-speech-output');
   const veilRebootBtn = document.getElementById('veil-reboot-btn');
   const veilDismissBtn = document.getElementById('veil-dismiss-btn');
+  const veilArenaLink = document.getElementById('veil-arena-link');
 
   // Sound Toggle Handler
   if (soundToggle) {
@@ -968,7 +1142,21 @@
     });
   }
   if (veilDismissBtn) {
-    veilDismissBtn.addEventListener('click', closeVeilOverlay);
+    veilDismissBtn.addEventListener('click', function() {
+      markChallengesSeen();
+      closeVeilOverlay();
+      closeChallengesModal();
+    });
+  }
+  if (veilArenaLink) {
+    veilArenaLink.addEventListener('click', function(e) {
+      markChallengesSeen();
+      if (isChallengesPage) {
+        e.preventDefault();
+        closeVeilOverlay();
+        closeChallengesModal();
+      }
+    });
   }
 
   function scrollTerminalBottom() {
@@ -978,7 +1166,7 @@
   }
 
   // Append formatted lines to terminal
-  function appendAgentLine(textHtml, isAssigned) {
+  function appendAgentLine(textHtml) {
     playAgentChime();
     const line = document.createElement('div');
     line.className = 'term-line term-line-agent';
@@ -1011,30 +1199,6 @@
       .replace(/"/g, '&quot;');
   }
 
-  // Typewriter effect helper
-  function typeWriterHtml(element, htmlContent, speed, callback) {
-    let i = 0;
-    element.innerHTML = '';
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = htmlContent;
-    const plainText = tempDiv.textContent || tempDiv.innerText || '';
-
-    // If text contains HTML tags, we display directly or type character by character
-    let currentText = '';
-    const interval = setInterval(() => {
-      if (i < plainText.length) {
-        currentText += plainText.charAt(i);
-        element.textContent = currentText;
-        playKeyClick();
-        i++;
-      } else {
-        clearInterval(interval);
-        element.innerHTML = htmlContent; // Restore full rich HTML tags
-        if (callback) callback();
-      }
-    }, speed || 24);
-  }
-
   // Start initialization sequence
   function startTerminalSequence() {
     state = 'INIT';
@@ -1059,7 +1223,11 @@
       state = 'AWAITING_NAME';
       terminalInput.disabled = false;
       submitBtn.disabled = false;
-      terminalInput.placeholder = 'Enter your operative name...';
+      if (defaultLoggedInName) {
+        terminalInput.placeholder = `Enter your name (e.g. ${defaultLoggedInName})...`;
+      } else {
+        terminalInput.placeholder = 'Enter your operative name...';
+      }
       terminalInput.focus();
     }, 1900);
   }
@@ -1076,7 +1244,10 @@
   });
 
   function handleInputSubmit() {
-    const val = terminalInput.value.trim();
+    let val = terminalInput.value.trim();
+    if (!val && defaultLoggedInName && state === 'AWAITING_NAME') {
+      val = defaultLoggedInName;
+    }
     if (!val) return;
 
     if (state === 'AWAITING_NAME') {
@@ -1164,6 +1335,9 @@
     // Play catastrophic sound!
     playCrashAudio();
 
+    // Mark challenges as seen now so if they reload mid-crash it won't trap them
+    markChallengesSeen();
+
     // Show Fullscreen Crash Overlay
     if (crashOverlay) {
       crashOverlay.classList.remove('d-none');
@@ -1221,7 +1395,7 @@
     }
 
     // Veil speaks to the user with their entered name!
-    const targetName = userName || 'Operative';
+    const targetName = userName || defaultLoggedInName || 'Operative';
     const veilSpeechText = `
       <span class="veil-salute">Hi, ${escapeHtml(targetName)}...</span>
       <span class="veil-quote">"Did you honestly believe you were assigned a mission?"</span>
