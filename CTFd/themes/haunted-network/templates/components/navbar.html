@@ -1,11 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="main-nav">
-  <div class="container">
+<nav class="navbar navbar-expand-lg fixed-top" id="main-nav">
+  <div class="container navbar-frame">
     <a href="{{ url_for('views.static_html', route='/') }}" class="navbar-brand">
-      <img
-        class="brand-logo"
-        src="{{ url_for('views.themes_beta', theme='haunted-network', path='img/logo.png') }}"
-        alt="CYBERTOBER'26"
-      >
+      <div class="brand-badge-box">
+        <img
+          class="brand-logo"
+          src="{{ url_for('views.themes_beta', theme='haunted-network', path='img/logo.png') }}"
+          alt="CYBERTOBER'26"
+        >
+      </div>
       <span class="brand-text">CYBERTOBER'26</span>
     </a>
 
@@ -17,47 +19,43 @@
     </button>
 
     <div class="collapse navbar-collapse" id="base-navbars">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav mx-auto align-items-lg-center">
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('views.static_html', route='/') }}">
-            <i class="fas fa-terminal pe-1 d-none d-lg-inline text-muted"></i>
+          <a class="nav-link {{ 'active' if (request.path == '/' or route == 'index' or title == 'index' or not request.path) }}" href="{{ url_for('views.static_html', route='/') }}">
             {% trans %}Home{% endtrans %}
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('challenges.listing') }}">
-            <i class="fas fa-crosshairs pe-1 d-none d-lg-inline text-muted"></i>
+          <a class="nav-link {{ 'active' if 'challenges' in request.path }}" href="{{ url_for('challenges.listing') }}">
             {% trans %}Challenges{% endtrans %}
           </a>
         </li>
 
         {% if Configs.account_visibility != 'admins' and Configs.score_visibility != 'admins' %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('scoreboard.listing') }}">
-              <i class="fas fa-chart-line pe-1 d-none d-lg-inline text-muted"></i>
+            <a class="nav-link {{ 'active' if 'scoreboard' in request.path }}" href="{{ url_for('scoreboard.listing') }}">
               {% trans %}Scoreboard{% endtrans %}
             </a>
           </li>
         {% endif %}
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('views.static_html', route='/') }}#rules">
-            <i class="fas fa-shield-alt pe-1 d-none d-lg-inline text-muted"></i>
+          <a class="nav-link {{ 'active' if 'rules' in request.path }}" href="{{ url_for('views.static_html', route='/') }}#rules">
             {% trans %}Rules{% endtrans %}
           </a>
         </li>
 
         {% if Configs.account_visibility != 'admins' %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('users.listing') }}">
+            <a class="nav-link {{ 'active' if 'users' in request.path }}" href="{{ url_for('users.listing') }}">
               {% trans %}Users{% endtrans %}
             </a>
           </li>
 
           {% if Configs.user_mode == 'teams' %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('teams.listing') }}">
+              <a class="nav-link {{ 'active' if 'teams' in request.path }}" href="{{ url_for('teams.listing') }}">
                 {% trans %}Teams{% endtrans %}
               </a>
             </li>
@@ -73,15 +71,12 @@
         {% endfor %}
       </ul>
 
-      <hr class="d-lg-none my-2 text-secondary">
-
       <ul class="navbar-nav ms-auto align-items-lg-center">
         {% if authed() %}
 
           {% if is_admin() %}
             <li class="nav-item">
               <a class="nav-link text-warning" href="{{ url_for('admin.view') }}">
-                <i class="fas fa-shield-virus pe-1"></i>
                 <span class="d-lg-inline">{% trans %}Admin Panel{% endtrans %}</span>
               </a>
             </li>
@@ -89,8 +84,7 @@
 
           <li class="nav-item">
             <a class="nav-link position-relative" href="{{ url_for('views.notifications') }}" title="Notifications">
-              <i class="fas fa-bell pe-1"></i>
-              <span class="d-lg-none">{% trans %}Notifications{% endtrans %}</span>
+              <span>{% trans %}Notifications{% endtrans %}</span>
               <span x-data x-show="$store.unread_count > 0" x-text="$store.unread_count" class="badge rounded-pill bg-danger badge-notification"></span>
             </a>
           </li>
@@ -98,7 +92,6 @@
           {% if Configs.user_mode == "teams" %}
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('teams.private') }}">
-                <i class="fas fa-users-cog pe-1"></i>
                 <span>{% trans %}Team{% endtrans %}</span>
               </a>
             </li>
@@ -106,22 +99,19 @@
 
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('users.private') }}">
-              <i class="fas fa-user-astronaut pe-1"></i>
               <span>{{ User.name }}</span>
             </a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('views.settings') }}" title="Settings">
-              <i class="fas fa-cog"></i>
-              <span class="d-lg-none ps-1">{% trans %}Settings{% endtrans %}</span>
+              <span>{% trans %}Settings{% endtrans %}</span>
             </a>
           </li>
 
           <li class="nav-item ms-lg-2">
-            <a class="nav-link btn-cta-secondary py-1 px-3" href="{{ url_for('auth.logout') }}">
-              <i class="fas fa-sign-out-alt pe-1"></i>
-              <span>{% trans %}Logout{% endtrans %}</span>
+            <a class="btn-nav-login btn-nav-logout py-1 px-3" href="{{ url_for('auth.logout') }}">
+              <span>{% trans %}LOGOUT{% endtrans %}</span>
             </a>
           </li>
 
@@ -129,25 +119,23 @@
 
           {% if registration_visible() %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('auth.register') }}">
-                <i class="fas fa-user-plus pe-1"></i>
+              <a class="nav-link {{ 'active' if 'register' in request.path }}" href="{{ url_for('auth.register') }}">
                 {% trans %}Register{% endtrans %}
               </a>
             </li>
           {% endif %}
 
           <li class="nav-item ms-lg-2">
-            <a class="nav-link nav-btn-action" href="{{ url_for('auth.login') }}">
-              <i class="fas fa-sign-in-alt pe-1"></i>
-              {% trans %}Login{% endtrans %}
+            <a class="btn-nav-login" href="{{ url_for('auth.login') }}">
+              {% trans %}LOGIN{% endtrans %}
             </a>
           </li>
 
         {% endif %}
 
         <li class="nav-item dropdown ms-lg-2">
-          <button class="nav-link dropdown-toggle border-0 bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Language">
-            <i class="fas fa-globe"></i>
+          <button class="nav-link dropdown-toggle border-0 bg-transparent text-secondary py-1 px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Language">
+            <span class="small font-monospace">{{ get_locale() | upper }}</span>
           </button>
           <form x-data="LanguageForm">
             <ul class="dropdown-menu dropdown-menu-end">

@@ -1,584 +1,435 @@
-// Landing Page Styles — CYBERTOBER'26 Halloween Horror Dark Theme
-// Poster Palette: Obsidian #0B0B0B | Blood Red #FF4935 | Moon Yellow #E6F04A | Blue #9AAFD8
+// Landing Page Styles — CYBERTOBER'26 Halloween Horror Theme (Matching Mockup)
+// Palette: Obsidian #0B0B0B | Blood Red #FF4935 | Moon Yellow #E6F04A | Blue #7EB6FF
 
 .hero-landing {
   position: relative;
-  min-height: 92vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #0B0B0B;
-  background-image:
-    linear-gradient(180deg, rgba(11, 11, 11, 0.45) 0%, rgba(11, 11, 11, 0.88) 75%, #0B0B0B 100%),
-    radial-gradient(circle at 75% 25%, rgba(230, 240, 74, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 20% 65%, rgba(255, 73, 53, 0.08) 0%, transparent 50%);
+  background-color: #060606;
+  background-image: 
+    linear-gradient(90deg, rgba(6, 6, 6, 0.94) 0%, rgba(6, 6, 6, 0.85) 38%, rgba(6, 6, 6, 0.4) 65%, transparent 100%),
+    url('../img/hero-bg-clean.png');
+  background-position: right center;
   background-size: cover;
-  background-position: center 20%;
+  background-repeat: no-repeat;
+  padding: 6.8rem 1rem 4rem;
   border-bottom: 2px solid rgba(255, 73, 53, 0.45);
-  box-shadow: inset 0 -40px 80px #0B0B0B, 0 10px 40px rgba(0, 0, 0, 0.9);
-  padding: 6.5rem 1.25rem 5rem;
+  box-shadow: inset 0 -40px 80px #060606, 0 10px 40px rgba(0, 0, 0, 0.95);
 
-  // Vintage screen-printed texture overlay
-  &::before {
-    content: "";
+  @media (max-width: 991.98px) {
+    background-image: 
+      linear-gradient(180deg, rgba(6, 6, 6, 0.85) 0%, rgba(6, 6, 6, 0.92) 50%, #060606 100%),
+      url('../img/hero-illustration.jpg');
+    background-position: center top;
+    padding-top: 5.5rem;
+  }
+
+  // Fog & Vignette overlay
+  .hero-vignette-overlay {
     position: absolute;
     inset: 0;
-    background-image:
-      radial-gradient(circle, rgba(230, 240, 74, 0.08) 1px, transparent 1px);
-    background-size: 32px 32px;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.7;
+    background: 
+      radial-gradient(circle at 18% 85%, rgba(255, 73, 53, 0.18) 0%, transparent 48%),
+      radial-gradient(circle at 82% 18%, rgba(230, 240, 74, 0.08) 0%, transparent 40%),
+      linear-gradient(0deg, #060606 0%, rgba(6, 6, 6, 0.4) 15%, transparent 100%);
   }
 
-  // Fog & dark vignette overlay
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 35%;
-    background: linear-gradient(0deg, #0B0B0B 0%, rgba(11, 11, 11, 0.8) 50%, transparent 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .hero-content {
-    position: relative;
+  .hero-container {
     z-index: 3;
-    max-width: 960px;
-    margin: 0 auto;
-    text-align: center;
+    width: 100%;
+    max-width: 1320px;
   }
 
-  .hero-mulearn-brand {
-    margin-bottom: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    font-family: var(--hn-font-sans);
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--hn-bone-white);
-    opacity: 0.9;
+  .min-vh-hero {
+    min-height: calc(100vh - 11rem);
+  }
 
-    .brand-accent {
-      color: var(--hn-blood-red);
-      font-weight: 700;
+  .hero-left-col {
+    position: relative;
+    z-index: 4;
+  }
+
+  // ── µLearn Brand Sub-Header ──────────────────────────────
+  .hero-mulearn-brand {
+    margin-bottom: 0.65rem;
+    display: inline-block;
+
+    .hero-mulearn-logo {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+      transition: filter var(--hn-transition-fast);
+
+      &:hover {
+        filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
+      }
     }
   }
 
-  .hero-badge-wrapper {
-    margin-bottom: 1.25rem;
+  // ── Dripping Horror Title ────────────────────────────────
+  .horror-title {
+    font-family: var(--hn-font-horror), 'Creepster', cursive;
+    font-size: clamp(3.4rem, 7.5vw, 6.2rem);
+    font-weight: 400;
+    color: #FF4935;
+    line-height: 0.92;
+    letter-spacing: clamp(1px, 0.3vw, 3px);
+    text-transform: uppercase;
+    margin: 0.2rem 0 0.85rem;
+    word-break: break-word;
+    text-shadow: 
+      0 0 25px rgba(255, 73, 53, 0.8),
+      0 0 50px rgba(255, 73, 53, 0.4),
+      2px 4px 0 #4a0c0a;
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
+    animation: drip-pulse 4s ease-in-out infinite;
   }
 
+  // ── Cyan Tagline ─────────────────────────────────────────
   .hero-tagline {
     font-family: var(--hn-font-sans);
-    font-size: clamp(1rem, 2.4vw, 1.35rem);
-    font-weight: 600;
-    color: #9AAFD8;
+    font-size: clamp(0.92rem, 1.6vw, 1.15rem);
+    font-weight: 700;
+    color: #7EB6FF;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    letter-spacing: clamp(1.5px, 0.3vw, 3px);
-    max-width: 760px;
-    margin: 0 auto 1.25rem;
-    line-height: 1.5;
-    text-shadow: 0 0 14px rgba(154, 175, 216, 0.35);
+    margin-bottom: 1.15rem;
+    line-height: 1.4;
+    text-shadow: 0 0 14px rgba(126, 182, 255, 0.45);
   }
 
+  // ── Description Paragraph ────────────────────────────────
   .hero-sub-tagline {
-    font-family: var(--hn-font-sans);
-    font-size: clamp(0.92rem, 1.8vw, 1.05rem);
-    font-weight: 400;
-    color: var(--hn-text-secondary);
-    max-width: 740px;
-    margin: 0 auto 1.85rem;
-    line-height: 1.8;
-    padding: 0 0.5rem;
+    font-family: var(--hn-font-mono);
+    font-size: clamp(0.85rem, 1.15vw, 0.95rem);
+    color: #B8B2A5;
+    line-height: 1.75;
+    max-width: 580px;
+    margin-bottom: 1.85rem;
   }
 
-  // Thorn-Framed Date Badge (from poster)
-  .event-date-badge {
-    display: inline-flex;
+  // ── Action Row (Date Badge + CTA Button) ──────────────────
+  .hero-action-row {
+    display: flex;
     align-items: center;
-    gap: 0.65rem;
-    background: rgba(18, 18, 18, 0.92);
-    border: 2px solid #E6F04A;
-    border-radius: 4px;
-    padding: 0.65rem 1.8rem;
-    font-family: var(--hn-font-heading);
-    font-size: clamp(1.1rem, 2.2vw, 1.45rem);
-    font-weight: 700;
-    color: #E6F04A;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    gap: 1.5rem;
     margin-bottom: 2.25rem;
-    box-shadow: 0 0 20px rgba(230, 240, 74, 0.35), inset 0 0 15px rgba(230, 240, 74, 0.08);
-    position: relative;
-
-    &::before, &::after {
-      content: "✦";
-      color: #FF4935;
-      font-size: 0.9rem;
-    }
-  }
-
-  .hero-cta-group {
-    display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    margin-bottom: 2.75rem;
 
-    @media (max-width: 480px) {
+    @media (max-width: 576px) {
       flex-direction: column;
-      width: 100%;
-      .btn-cta-primary, .btn-cta-secondary { width: 100%; justify-content: center; }
+      align-items: flex-start;
+      gap: 1.25rem;
     }
-  }
 
-  // Primary Action: Distressed blood-red with acid-yellow hover
-  .btn-cta-primary {
-    background: #FF4935;
-    color: #0B0B0B !important;
-    font-family: var(--hn-font-heading);
-    font-weight: 700;
-    font-size: clamp(1.15rem, 2vw, 1.35rem);
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    padding: 0.85rem 2.6rem;
-    border-radius: 4px;
-    border: 2px solid #FF4935;
-    box-shadow: 0 0 25px rgba(255, 73, 53, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.2);
-    transition: all var(--hn-transition-fast);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
+    .event-date-thorn-badge {
+      display: inline-block;
 
-    &:hover {
-      background: #E6F04A;
-      border-color: #E6F04A;
-      color: #0B0B0B !important;
-      box-shadow: 0 0 35px rgba(230, 240, 74, 0.8);
-      transform: translateY(-2px);
+      .date-thorn-img {
+        height: 108px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 0 14px rgba(230, 240, 74, 0.45));
+        transition: transform var(--hn-transition-fast), filter var(--hn-transition-fast);
+
+        &:hover {
+          transform: scale(1.03);
+          filter: drop-shadow(0 0 24px rgba(230, 240, 74, 0.75));
+        }
+      }
     }
-  }
 
-  .btn-cta-secondary {
-    background: rgba(18, 18, 18, 0.85);
-    color: var(--hn-bone-white) !important;
-    font-family: var(--hn-font-heading);
-    font-weight: 700;
-    font-size: clamp(1.15rem, 2vw, 1.35rem);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 0.85rem 2.2rem;
-    border-radius: 4px;
-    border: 2px solid rgba(255, 73, 53, 0.55);
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
-    transition: all var(--hn-transition-fast);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-
-    &:hover {
-      border-color: #E6F04A;
-      color: #E6F04A !important;
-      background: rgba(230, 240, 74, 0.08);
-      box-shadow: 0 0 20px rgba(230, 240, 74, 0.35);
-      transform: translateY(-2px);
+    .hero-cta-wrap {
+      display: inline-block;
     }
-  }
 
-  // Countdown HUD with horror aesthetic
-  .countdown-container {
-    background: rgba(18, 18, 18, 0.94);
-    backdrop-filter: blur(12px);
-    border: 1.5px solid rgba(255, 73, 53, 0.40);
-    border-radius: var(--hn-border-radius-md);
-    padding: clamp(0.85rem, 2vw, 1.35rem) clamp(1rem, 2.5vw, 2.25rem);
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(0.85rem, 2.5vw, 2.25rem);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 73, 53, 0.15);
-
-    .countdown-unit {
-      display: flex;
-      flex-direction: column;
+    .btn-cta-night {
+      background: #FF4935;
+      color: #000000 !important;
+      font-family: var(--hn-font-sans);
+      font-weight: 800;
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.78rem 2.25rem;
+      border-radius: 8px;
+      border: 1.5px solid rgba(0, 0, 0, 0.8);
+      box-shadow: 
+        0 0 25px rgba(255, 73, 53, 0.85),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+      display: inline-flex;
       align-items: center;
-      min-width: 56px;
+      gap: 0.75rem;
+      text-decoration: none !important;
+      transition: all var(--hn-transition-fast);
+      cursor: pointer;
 
-      .countdown-val {
-        font-family: var(--hn-font-mono);
-        font-size: clamp(1.5rem, 3.8vw, 2.6rem);
-        font-weight: 800;
-        color: #E6F04A;
-        text-shadow: 0 0 14px rgba(230, 240, 74, 0.45);
+      .cta-arrow {
+        font-size: 1.3em;
         line-height: 1;
+        transition: transform var(--hn-transition-fast);
       }
 
-      .countdown-label {
-        font-family: var(--hn-font-mono);
-        font-size: clamp(0.65rem, 1.2vw, 0.75rem);
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--hn-text-muted);
-        margin-top: 0.35rem;
+      &:hover {
+        background: #E6F04A;
+        color: #000000 !important;
+        box-shadow: 0 0 35px rgba(230, 240, 74, 0.95);
+        transform: translateY(-2px);
+
+        .cta-arrow {
+          transform: translateX(5px);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
       }
     }
   }
-}
 
-// ── Section Base: Dark Editorial Layout ────────────────────────
-.section-landing {
-  padding: 5.5rem 0;
-  position: relative;
-  background-color: #0B0B0B;
-  border-bottom: 1px solid rgba(255, 73, 53, 0.18);
-
-  .section-tag {
-    font-family: var(--hn-font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #E6F04A;
-    margin-bottom: 0.65rem;
-    display: block;
-    font-weight: 700;
-    text-shadow: 0 0 8px rgba(230, 240, 74, 0.3);
+  // ── Technical HUD Countdown Card ──────────────────────────
+  .hero-hud-row {
+    width: 100%;
+    position: relative;
+    z-index: 5;
   }
 
-  .section-title {
-    font-family: var(--hn-font-heading);
-    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-    font-weight: 700;
-    color: var(--hn-bone-white);
-    letter-spacing: 2px;
-    margin-bottom: 1.25rem;
-    text-transform: uppercase;
-  }
+  .hud-countdown-card {
+    background: rgba(12, 12, 12, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 73, 53, 0.45);
+    border-radius: 6px;
+    padding: 1.1rem 1.6rem;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 
+      0 12px 36px rgba(0, 0, 0, 0.95), 
+      0 0 25px rgba(255, 73, 53, 0.2);
 
-  .section-subtitle {
-    color: var(--hn-text-secondary);
-    font-size: 1.05rem;
-    max-width: 660px;
-    margin-bottom: 3rem;
-    line-height: 1.7;
-  }
-}
-
-.section-landing.bg-dark {
-  background-color: #111111 !important;
-}
-
-// ── Category Cards ─────────────────────────────────────────────
-// ── Category Cards (Forbidden Case Files) ──────────────────────
-.category-card {
-  background: #141414;
-  border: 1px solid rgba(255, 73, 53, 0.25);
-  border-radius: var(--hn-border-radius-md);
-  padding: 2.2rem 1.75rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  transition: all var(--hn-transition-normal);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #FF4935, transparent);
-    opacity: 0;
-    transition: opacity var(--hn-transition-fast);
-  }
-
-  &:hover {
-    transform: translateY(-5px);
-    border-color: #FF4935;
-    box-shadow: 0 10px 32px rgba(255, 73, 53, 0.25), 0 0 16px rgba(255, 73, 53, 0.15);
-
-    &::before { opacity: 1; }
-    .cat-icon  { color: #E6F04A; transform: scale(1.12); }
-  }
-
-  .cat-icon {
-    font-size: 2.4rem;
-    color: #FF4935;
-    margin-bottom: 1.25rem;
-    transition: all var(--hn-transition-fast);
-  }
-
-  .cat-name {
-    font-family: var(--hn-font-heading);
-    font-size: 1.45rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--hn-bone-white);
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-
-  .cat-desc {
-    font-size: 0.92rem;
-    color: var(--hn-text-secondary);
-    line-height: 1.6;
-    flex-grow: 1;
-  }
-
-  .cat-meta {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 73, 53, 0.15);
-    font-family: var(--hn-font-mono);
-    font-size: 0.78rem;
-    color: var(--hn-text-muted);
-  }
-}
-
-// ── Step Cards (Operation Phases) ─────────────────────────────
-.step-card {
-  background: #141414;
-  border: 1px solid rgba(255, 73, 53, 0.25);
-  border-radius: var(--hn-border-radius-md);
-  padding: 2.4rem 1.85rem;
-  height: 100%;
-  position: relative;
-  transition: all var(--hn-transition-fast);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-
-  &:hover {
-    border-color: #E6F04A;
-    box-shadow: 0 8px 30px rgba(230, 240, 74, 0.2);
-  }
-
-  .step-num {
-    font-family: var(--hn-font-heading);
-    font-size: 3rem;
-    font-weight: 700;
-    color: #E6F04A;
-    opacity: 0.95;
-    line-height: 1;
-    margin-bottom: 1rem;
-    letter-spacing: 2px;
-    text-shadow: 0 0 14px rgba(230, 240, 74, 0.4);
-  }
-
-  .step-title {
-    font-family: var(--hn-font-heading);
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--hn-bone-white);
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-
-  .step-text {
-    font-size: 0.92rem;
-    color: var(--hn-text-secondary);
-    line-height: 1.6;
-  }
-}
-
-// ── Rules Container ───────────────────────────────────────────
-.rules-container {
-  background: #141414;
-  border: 1px solid rgba(255, 73, 53, 0.30);
-  border-radius: var(--hn-border-radius-md);
-  padding: clamp(1.5rem, 3.5vw, 2.75rem) clamp(1.2rem, 3vw, 2.5rem);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.85);
-
-  .rule-item {
-    display: flex;
-    gap: clamp(0.85rem, 2vw, 1.35rem);
-    margin-bottom: 1.75rem;
-    &:last-child { margin-bottom: 0; }
-
-    .rule-icon {
+    // Technical corner brackets / crosshairs (+)
+    .hud-crosshair {
+      position: absolute;
+      color: rgba(255, 73, 53, 0.7);
+      font-family: var(--hn-font-mono);
       font-size: 1.15rem;
-      width: 40px; height: 40px;
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      font-weight: 700;
+      line-height: 1;
+      pointer-events: none;
 
-      &.safe {
-        background: rgba(57, 211, 83, 0.12);
-        border: 1px solid rgba(57, 211, 83, 0.40);
-        color: #39D353;
-      }
-      &.forbidden {
-        background: rgba(255, 73, 53, 0.15);
-        border: 1px solid rgba(255, 73, 53, 0.45);
-        color: #FF4935;
-      }
+      &.hud-cross-tl { top: -9px; left: -9px; }
+      &.hud-cross-tr { top: -9px; right: -9px; }
+      &.hud-cross-bl { bottom: -9px; left: -9px; }
+      &.hud-cross-br { bottom: -9px; right: -9px; }
     }
 
-    .rule-content {
-      .rule-heading {
-        font-family: var(--hn-font-heading);
-        font-weight: 700;
-        font-size: 1.2rem;
-        letter-spacing: 1px;
-        color: var(--hn-bone-white);
-        text-transform: uppercase;
-        margin-bottom: 0.35rem;
-      }
-      .rule-detail {
-        font-size: 0.92rem;
-        color: var(--hn-text-secondary);
-        line-height: 1.65;
-        word-break: break-word;
-      }
-    }
-  }
-}
-
-// ── Organizer Card ────────────────────────────────────────────
-.organizer-card {
-  background: #141414;
-  border: 1px solid rgba(255, 73, 53, 0.35);
-  border-radius: var(--hn-border-radius-md);
-  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.2rem, 3vw, 3rem);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 73, 53, 0.1);
-
-  .org-logo-wrapper {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    margin-bottom: 1.75rem;
-
-    .org-shield-icon {
-      width: clamp(52px, 6vw, 64px);
-      height: clamp(52px, 6vw, 64px);
-      border-radius: 6px;
-      background: rgba(255, 73, 53, 0.12);
-      border: 2px solid #FF4935;
-      color: #FF4935;
+    // Top status line
+    .hud-status-bar {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.85rem;
-      box-shadow: 0 0 20px rgba(255, 73, 53, 0.35);
-    }
+      gap: 0.5rem;
+      font-family: var(--hn-font-mono);
+      font-size: 0.76rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
 
-    .org-text {
-      text-align: left;
-      @media (max-width: 576px) { text-align: center; }
+      .hud-status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #39D353;
+        box-shadow: 0 0 10px #39D353;
+        position: relative;
 
-      .org-name {
-        font-family: var(--hn-font-heading);
-        font-size: clamp(1.4rem, 3.5vw, 1.85rem);
-        font-weight: 700;
-        color: var(--hn-bone-white);
-        letter-spacing: 2.5px;
-        text-transform: uppercase;
+        &::after {
+          content: "";
+          position: absolute;
+          inset: -3px;
+          border-radius: 50%;
+          background: inherit;
+          opacity: 0.4;
+          animation: pulse-ring 2s infinite;
+        }
+
+        &.upcoming {
+          background-color: #FF4935;
+          box-shadow: 0 0 10px #FF4935;
+        }
+
+        &.ended {
+          background-color: #7A756D;
+          box-shadow: none;
+          &::after { display: none; }
+        }
       }
-      .org-sub {
-        font-family: var(--hn-font-mono);
-        font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+
+      .hud-status-label {
+        color: #8A857C;
+      }
+
+      .hud-status-state {
         color: #E6F04A;
-        letter-spacing: 1.5px;
-        font-weight: 600;
+        font-weight: 700;
+        text-shadow: 0 0 8px rgba(230, 240, 74, 0.45);
+
+        &.upcoming { color: #FF4935; }
+        &.ended { color: #8A857C; }
       }
+
+      .hud-status-slash {
+        color: #555555;
+      }
+
+      .hud-status-desc {
+        color: #B8B2A5;
+      }
+    }
+
+    // 4-Column Time Grid
+    .hud-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: center;
+      text-align: center;
+
+      .hud-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.2rem 0.5rem;
+
+        .hud-number {
+          font-family: var(--hn-font-horror), 'Creepster', cursive;
+          font-size: clamp(2.3rem, 4.4vw, 3.1rem);
+          color: #FF4935;
+          line-height: 1;
+          letter-spacing: 1px;
+          text-shadow: 
+            0 0 16px rgba(255, 73, 53, 0.75),
+            1px 2px 0 #5c0f0d;
+        }
+
+        .hud-tag {
+          font-family: var(--hn-font-mono);
+          font-size: 0.72rem;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: #8A857C;
+          margin-top: 0.35rem;
+        }
+      }
+
+      .hud-sep {
+        width: 1px;
+        height: 38px;
+        background: rgba(255, 73, 53, 0.25);
+      }
+    }
+  }
+
+  // ── Hero Character Placement ─────────────────────────────
+  .hero-right-col {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-character-stage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    .hero-character-cutout {
+      max-width: 125%;
+      height: auto;
+      object-fit: contain;
+      transform: translateY(25px);
+      filter: drop-shadow(0 0 40px rgba(255, 73, 53, 0.25));
+      animation: character-breathe 6s ease-in-out infinite;
+      pointer-events: none;
     }
   }
 }
 
-// ── Badge / Pill shared styles ────────────────────────────────
-.badge-tech {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.35rem 0.95rem;
-  border-radius: 3px;
-  font-family: var(--hn-font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border: 1px solid;
-
-  &.badge-ember {
-    background: rgba(255, 73, 53, 0.12);
-    border-color: rgba(255, 73, 53, 0.45);
-    color: #FF4935;
+@keyframes character-breathe {
+  0%, 100% {
+    transform: translateY(25px) scale(1);
+    filter: drop-shadow(0 0 40px rgba(255, 73, 53, 0.25));
   }
-  &.badge-phosphor {
-    background: rgba(57, 211, 83, 0.12);
-    border-color: rgba(57, 211, 83, 0.45);
-    color: #39D353;
-  }
-  &.badge-spectral {
-    background: rgba(230, 240, 74, 0.12);
-    border-color: rgba(230, 240, 74, 0.50);
-    color: #E6F04A;
+  50% {
+    transform: translateY(16px) scale(1.02);
+    filter: drop-shadow(0 0 55px rgba(255, 73, 53, 0.45));
   }
 }
 
-// ── Incident Information Grid & Event Cards ───────────────────
-.event-info-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+// ── Interactive Terminal Console Section ───────────────────────
+.section-terminal-console {
+  background-color: #060606;
+  border-bottom: 1px solid rgba(255, 73, 53, 0.2);
+  position: relative;
 }
 
-.event-info-card {
-  background: #141414;
-  border: 1px solid rgba(255, 73, 53, 0.25);
+// ── Subpage / Custom Markdown Content Terminal ─────────────────
+.terminal-card {
+  background: #111111;
+  border: 1px solid rgba(255, 73, 53, 0.30);
   border-radius: var(--hn-border-radius-md);
-  padding: 1.45rem 1.65rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
-  transition: border-color var(--hn-transition-fast), transform var(--hn-transition-fast), box-shadow var(--hn-transition-fast);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95);
+  overflow: hidden;
 
-  &:hover {
-    border-color: #FF4935;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(255, 73, 53, 0.25);
-  }
-
-  .event-info-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 6px;
-    background: rgba(255, 73, 53, 0.12);
-    border: 1px solid rgba(255, 73, 53, 0.45);
-    color: #FF4935;
+  .terminal-header {
+    background: #181818;
+    border-bottom: 1px solid rgba(255, 73, 53, 0.25);
+    padding: 0.75rem 1.25rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.35rem;
-    flex-shrink: 0;
+    gap: 0.85rem;
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+      span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #FF4935;
+        &:nth-child(2) { background-color: #E6F04A; }
+        &:nth-child(3) { background-color: #39D353; }
+      }
+    }
+
+    .terminal-title {
+      font-family: var(--hn-font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      color: #EAE5D8;
+      text-transform: uppercase;
+      flex-grow: 1;
+    }
+
+    .terminal-tag {
+      font-family: var(--hn-font-mono);
+      font-size: 0.72rem;
+      color: #FF4935;
+      letter-spacing: 1px;
+    }
   }
 
-  .event-info-content {
-    flex: 1;
-
-    .event-info-title {
-      font-family: var(--hn-font-heading);
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      color: var(--hn-bone-white);
-      text-transform: uppercase;
-      margin-bottom: 0.35rem;
-    }
-
-    .event-info-desc {
-      font-size: 0.92rem;
-      color: var(--hn-text-secondary);
-      line-height: 1.6;
-    }
+  .terminal-body {
+    padding: 1.75rem 2rem;
+    color: #EAE5D8;
+    font-family: var(--hn-font-sans);
+    line-height: 1.8;
   }
 }

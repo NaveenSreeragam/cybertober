@@ -2,74 +2,124 @@
 
 {% block content %}
 {% if request.path == '/' or route == 'index' or title == 'index' or not route %}
-  <!-- HERO SECTION -->
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION MATCHING MOCKUP -->
   <section class="hero-landing">
-    <!-- Restrained atmospheric silhouettes and subtle glowing elements -->
-    <div class="hero-ambient-moon" aria-hidden="true"></div>
-    <div class="hero-ambient-fog" aria-hidden="true"></div>
+    <!-- Atmospheric Ambient Vignette -->
+    <div class="hero-vignette-overlay" aria-hidden="true"></div>
 
-    <div class="hero-content">
-      <h1 class="horror-title" data-text="CYBERTOBER '26">CYBERTOBER '26</h1>
+    <div class="container hero-container position-relative">
+      <div class="row align-items-center min-vh-hero">
+        
+        <!-- LEFT COLUMN: Brand, Title, Description, CTAs, Countdown HUD -->
+        <div class="col-lg-7 col-xl-7 hero-left-col">
+          
+          <!-- µLearn Brand Logo & Subscript -->
+          <div class="hero-mulearn-brand">
+            <img 
+              src="{{ url_for('views.themes_beta', theme='haunted-network', path='img/mulearn-logo.png') }}" 
+              alt="µlearn a GTech Initiative"
+              class="hero-mulearn-logo"
+            >
+          </div>
+          <br>
 
-      <p class="hero-tagline">
-        ONE STATE. MANY CAMPUSES. A SAFER DIGITAL FUTURE.
-      </p>
+          <!-- Main Dripping Horror Title -->
+          <h1 class="horror-title" data-text="CYBERTOBER'26">CYBERTOBER'26</h1>
 
-      <p class="hero-sub-tagline">
-        This Halloween, curious minds across Kerala converge in a haunted digital frontier to confront evolving cybersecurity threats.
-        Awareness is our first line of defence. Infiltrate quarantined nodes, decode corrupted signals, and build a safer digital tomorrow.
-      </p>
+          <!-- Cyan Tagline -->
+          <p class="hero-tagline">
+            ONE STATE. MANY CAMPUSES. A SAFER DIGITAL FUTURE.
+          </p>
 
-      <div class="event-date-badge">
-        <i class="fas fa-calendar-alt"></i>&nbsp; <strong>OCTOBER 26–31</strong>
+          <!-- Sub-Tagline Description -->
+          <p class="hero-sub-tagline">
+            This Halloween, curious minds across Kerala converge in a haunted digital frontier to confront evolving cybersecurity threats. Awareness is our first line of defence. Infiltrate quarantined nodes, decode corrupted signals, and build a safer digital tomorrow.
+          </p>
+
+          <!-- Buttons Row: Thorny Date Badge + Enter The Night Action -->
+          <div class="hero-action-row">
+            <div class="event-date-thorn-badge" title="Event Duration: October 26-31">
+              <img 
+                src="{{ url_for('views.themes_beta', theme='haunted-network', path='img/date-badge-thorn.png') }}" 
+                alt="October 26-31" 
+                class="date-thorn-img"
+              >
+            </div>
+
+            <div class="hero-cta-wrap">
+              {% if authed() %}
+                <a href="{{ url_for('challenges.listing') }}" class="btn-cta-night">
+                  <span>ENTER THE NIGHT</span>
+                  <span class="cta-arrow">&rarr;</span>
+                </a>
+              {% elif registration_visible() %}
+                <a href="{{ url_for('auth.register') }}" class="btn-cta-night">
+                  <span>ENTER THE NIGHT</span>
+                  <span class="cta-arrow">&rarr;</span>
+                </a>
+              {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn-cta-night">
+                  <span>ENTER THE NIGHT</span>
+                  <span class="cta-arrow">&rarr;</span>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
-      <!-- Dynamic Call to Action -->
-      <div class="hero-cta-group">
-        {% if authed() %}
-          <a href="{{ url_for('challenges.listing') }}" class="btn-cta-primary">
-            <i class="fas fa-skull"></i> {% trans %}ENTER THE NIGHT{% endtrans %}
-          </a>
-        {% elif registration_visible() %}
-          <a href="{{ url_for('auth.register') }}" class="btn-cta-primary">
-            <i class="fas fa-skull"></i> {% trans %}ENTER THE NIGHT{% endtrans %}
-          </a>
-        {% else %}
-          <a href="{{ url_for('auth.login') }}" class="btn-cta-primary">
-            <i class="fas fa-skull"></i> {% trans %}ENTER THE NIGHT{% endtrans %}
-          </a>
-        {% endif %}
-      </div>
+      <!-- CENTER-ALIGNED TECHNICAL STATUS & COUNTDOWN HUD ROW -->
+      <div class="row justify-content-center hero-hud-row mt-4 pt-2">
+        <div class="col-12 d-flex justify-content-center">
+          <div class="hud-countdown-card" x-data="EventTimer()" x-init="startTimer()">
+            <!-- Technical Corner Reticles -->
+            <span class="hud-crosshair hud-cross-tl">+</span>
+            <span class="hud-crosshair hud-cross-tr">+</span>
+            <span class="hud-crosshair hud-cross-bl">+</span>
+            <span class="hud-crosshair hud-cross-br">+</span>
 
-      <!-- Real CTFd Countdown & Status HUD -->
-      <div class="countdown-container" x-data="EventTimer()" x-init="startTimer()">
-        <div class="w-100 text-center mb-2">
-          <div class="status-indicator" :class="statusClass">
-            <span class="pulse-dot"></span>
-            <span x-text="statusText"></span>
+            <!-- Status Indicator Header -->
+            <div class="hud-status-bar">
+              <span class="hud-status-dot" :class="statusClass"></span>
+              <span class="hud-status-label">STATUS:</span>
+              <span class="hud-status-state" :class="statusClass" x-text="statusBadge">LIVE</span>
+              <span class="hud-status-slash">//</span>
+              <span class="hud-status-desc" x-text="statusDetail">ARENA OPEN</span>
+            </div>
+
+            <!-- 4-Column Time Units Display -->
+            <div class="hud-grid">
+              <div class="hud-cell">
+                <span class="hud-number" x-text="days">05</span>
+                <span class="hud-tag">DAYS</span>
+              </div>
+              <div class="hud-sep"></div>
+              <div class="hud-cell">
+                <span class="hud-number" x-text="hours">14</span>
+                <span class="hud-tag">HOURS</span>
+              </div>
+              <div class="hud-sep"></div>
+              <div class="hud-cell">
+                <span class="hud-number" x-text="minutes">32</span>
+                <span class="hud-tag">MINUTES</span>
+              </div>
+              <div class="hud-sep"></div>
+              <div class="hud-cell">
+                <span class="hud-number" x-text="seconds">21</span>
+                <span class="hud-tag">SECONDS</span>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="countdown-unit">
-          <span class="countdown-val" x-text="days">00</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-val" x-text="hours">00</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-val" x-text="minutes">00</span>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-val" x-text="seconds">00</span>
-          <span class="countdown-label">Seconds</span>
-        </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Interactive Agent Terminal & Veil Easter Egg -->
+  <!-- INTERACTIVE QUARANTINE NODE TERMINAL -->
+  <section class="section-terminal-console py-4">
+    <div class="container">
       {% include "components/terminal_agent.html" %}
     </div>
   </section>
@@ -114,12 +164,13 @@
   <script>
     document.addEventListener('alpine:init', () => {
       Alpine.data('EventTimer', () => ({
-        days: '00',
-        hours: '00',
-        minutes: '00',
-        seconds: '00',
+        days: '05',
+        hours: '14',
+        minutes: '32',
+        seconds: '21',
         statusClass: 'live',
-        statusText: 'OPERATIONAL // NETWORK LIVE',
+        statusBadge: 'LIVE',
+        statusDetail: 'ARENA OPEN',
 
         startTimer() {
           const start = window.init.start ? window.init.start * 1000 : null;
@@ -131,12 +182,14 @@
             if (start && now < start) {
               // Upcoming
               this.statusClass = 'upcoming';
-              this.statusText = 'STATUS: UPCOMING // COMMENCING SOON';
+              this.statusBadge = 'UPCOMING';
+              this.statusDetail = 'COMMENCING SOON';
               this.calcTime(start - now);
             } else if (end && now > end) {
               // Ended
               this.statusClass = 'ended';
-              this.statusText = 'STATUS: CONCLUDED // ARCHIVE MODE';
+              this.statusBadge = 'CONCLUDED';
+              this.statusDetail = 'ARCHIVE MODE';
               this.days = '00';
               this.hours = '00';
               this.minutes = '00';
@@ -144,16 +197,23 @@
             } else if (end) {
               // Live with end time
               this.statusClass = 'live';
-              this.statusText = 'STATUS: LIVE // TIME REMAINING';
+              this.statusBadge = 'LIVE';
+              this.statusDetail = 'TIME REMAINING';
               this.calcTime(end - now);
             } else {
-              // Live without end time
+              // Live default / arena open
               this.statusClass = 'live';
-              this.statusText = 'STATUS: LIVE // ARENA OPEN';
-              this.days = '--';
-              this.hours = '--';
-              this.minutes = '--';
-              this.seconds = '--';
+              this.statusBadge = 'LIVE';
+              this.statusDetail = 'ARENA OPEN';
+              const defaultEnd = new Date('2026-10-31T23:59:59+05:30').getTime();
+              if (now < defaultEnd) {
+                this.calcTime(defaultEnd - now);
+              } else {
+                this.days = '05';
+                this.hours = '14';
+                this.minutes = '32';
+                this.seconds = '21';
+              }
             }
           };
 
