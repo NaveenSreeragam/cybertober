@@ -54,41 +54,52 @@
     z-index: 4;
   }
 
-  // ── µLearn Brand Sub-Header ──────────────────────────────
-  .hero-mulearn-brand {
-    margin-bottom: 0.65rem;
-    display: inline-block;
-
-    .hero-mulearn-logo {
-      height: 28px;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
-      transition: filter var(--hn-transition-fast);
-
-      &:hover {
-        filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
-      }
-    }
-  }
-
   // ── Dripping Horror Title ────────────────────────────────
   .horror-title {
     font-family: var(--hn-font-horror), 'Creepster', cursive;
-    font-size: clamp(3.4rem, 7.5vw, 6.2rem);
+    font-size: clamp(4.4rem, 8.2vw, 7.2rem);
     font-weight: 400;
     color: #FF4935;
-    line-height: 0.92;
-    letter-spacing: clamp(1px, 0.3vw, 3px);
+    line-height: 0.86;
+    letter-spacing: clamp(0px, 0.15vw, 2px);
     text-transform: uppercase;
-    margin: 0.2rem 0 0.85rem;
-    word-break: break-word;
+    margin: 0.15rem 0 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    column-gap: 0.02em;
+    max-width: 100%;
     text-shadow: 
       0 0 25px rgba(255, 73, 53, 0.8),
       0 0 50px rgba(255, 73, 53, 0.4),
       2px 4px 0 #4a0c0a;
     filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
     animation: drip-pulse 4s ease-in-out infinite;
+
+    @media (min-width: 992px) {
+      flex-wrap: nowrap;
+    }
+
+    .title-word,
+    .title-year {
+      display: block;
+    }
+
+    .title-year-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+
+    .hero-mulearn-logo {
+      height: clamp(20px, 2.8vw, 32px);
+      width: auto;
+      max-width: 7.2em;
+      object-fit: contain;
+      margin: 0 0.08em 0.18rem 0;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+    }
   }
 
   // ── Cyan Tagline ─────────────────────────────────────────

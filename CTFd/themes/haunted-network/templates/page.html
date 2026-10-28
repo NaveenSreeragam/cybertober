@@ -11,20 +11,20 @@
       <div class="row align-items-center min-vh-hero">
         
         <!-- LEFT COLUMN: Brand, Title, Description, CTAs, Countdown HUD -->
-        <div class="col-lg-7 col-xl-7 hero-left-col">
+        <div class="col-12 col-lg-9 col-xl-10 hero-left-col">
           
-          <!-- µLearn Brand Logo & Subscript -->
-          <div class="hero-mulearn-brand">
-            <img 
-              src="{{ url_for('views.themes_beta', theme='haunted-network', path='img/mulearn-logo.png') }}" 
-              alt="µlearn a GTech Initiative"
-              class="hero-mulearn-logo"
-            >
-          </div>
-          <br>
-
           <!-- Main Dripping Horror Title -->
-          <h1 class="horror-title" data-text="CYBERTOBER'26">CYBERTOBER'26</h1>
+          <h1 class="horror-title" data-text="CYBERTOBER'26">
+            <span class="title-word">CYBERTOBER</span>
+            <span class="title-year-wrap">
+              <img
+                src="{{ url_for('views.themes_beta', theme='haunted-network', path='img/mulearn-logo.png') }}"
+                alt="µLearn, a GTech Initiative"
+                class="hero-mulearn-logo"
+              >
+              <span class="title-year">'26</span>
+            </span>
+          </h1>
 
           <!-- Cyan Tagline -->
           <p class="hero-tagline">
